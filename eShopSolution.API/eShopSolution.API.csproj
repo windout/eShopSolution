@@ -1,17 +1,21 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\eShopSolution.Business\eShopSolution.Business.csproj" />
     <ProjectReference Include="..\eShopSolution.Data\eShopSolution.Data.csproj" />
-    <ProjectReference Include="..\eShopSolution.Models\eShopSolution.Models.csproj" />
     <ProjectReference Include="..\eShopSolution.Utilities\eShopSolution.Utilities.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Catalog\" />
+    <Folder Include="Controllers\" />
   </ItemGroup>
 
 </Project>

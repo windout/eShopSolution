@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
@@ -6,12 +6,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\eShopSolution.Data\eShopSolution.Data.csproj" />
-    <ProjectReference Include="..\eShopSolution.Models\eShopSolution.Models.csproj" />
     <ProjectReference Include="..\eShopSolution.Utilities\eShopSolution.Utilities.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Catalog\" />
   </ItemGroup>
 
 </Project>
