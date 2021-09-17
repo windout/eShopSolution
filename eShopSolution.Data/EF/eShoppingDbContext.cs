@@ -1,6 +1,5 @@
 ﻿using eShopSolution.Data.Configurations;
 using eShopSolution.Data.entities;
-using eShopSolution.Data.Entities;
 using eShopSolution.Data.Extensions;
 using eShopSolution.Data.ModelConfiguration;
 using Microsoft.AspNetCore.Identity;
