@@ -52,8 +52,6 @@ namespace eShopSolution.API.Controllers
             }
             return Ok(result);
         }
-/*
-        //PUT: http://localhost/api/users/id
         [HttpPut("{id}")]
         public async Task<IActionResult> Update(Guid id, [FromBody] UserUpdateRequest request)
         {
@@ -82,7 +80,6 @@ namespace eShopSolution.API.Controllers
             return Ok(result);
         }
 
-        //http://localhost/api/users/paging?pageIndex=1&pageSize=10&keyword=
         [HttpGet("paging")]
         public async Task<IActionResult> GetAllPaging([FromQuery] GetUserPagingRequest request)
         {
@@ -102,6 +99,6 @@ namespace eShopSolution.API.Controllers
         {
             var result = await _userService.Delete(id);
             return Ok(result);
-        }*/
+        }
     }
 }

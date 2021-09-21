@@ -1,5 +1,6 @@
 using eShopSolution.Models.System.Users;
 using FluentValidation.AspNetCore;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -27,10 +28,31 @@ namespace WebAppShop.Admin
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddHttpClient();
+
             services.AddControllersWithViews()
                     .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<LoginRequestValidator>());
-            
+
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                    .AddCookie(option=> {                        
+                        option.LoginPath = "/Login";
+                        option.AccessDeniedPath = "/Login/Forbidden";
+                    });
+
+            services.AddSession(configure =>
+            {
+                configure.Cookie.Name = "Token";
+                configure.Cookie.MaxAge = TimeSpan.FromMinutes(10);
+                configure.Cookie.HttpOnly = true;
+                configure.IdleTimeout = TimeSpan.FromMinutes(5);
+            });
+
+            services.AddAuthorization();
+
             services.AddTransient<IUserApiClient, UserApiClient>();
+            services.AddTransient<IRoleApiClient, RoleApiClient>();
+            services.AddTransient<ILanguageApiClient, LanguageApiClient>();
+            services.AddTransient<IProductApiClient, ProductApiClient>();
+            services.AddTransient<ICategoryApiClient, CategoryApiClient>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -49,10 +71,12 @@ namespace WebAppShop.Admin
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
+            app.UseAuthentication();
+
             app.UseRouting();
 
             app.UseAuthorization();
-
+            app.UseSession();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(

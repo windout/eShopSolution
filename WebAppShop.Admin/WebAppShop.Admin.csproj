@@ -8,15 +8,21 @@
   <ItemGroup>
     <PackageReference Include="FluentValidation.AspNetCore" Version="10.3.3" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="5.0.10" />
+    <PackageReference Include="Microsoft.IdentityModel.Logging" Version="6.12.2" />
+    <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="6.12.2" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="5.0.2" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.12.2" />
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="wwwroot\js\datatables-simple-demo.js" />
+    <None Include="wwwroot\js\scripts.js" />
     <None Include="wwwroot\js\site.js" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\eShopSolution.Models\eShopSolution.Models.csproj" />
+    <ProjectReference Include="..\eShopSolution.Utilities\eShopSolution.Utilities.csproj" />
   </ItemGroup>
 
 </Project>

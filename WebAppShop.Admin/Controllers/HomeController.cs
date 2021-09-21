@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -9,7 +11,7 @@ using WebAppShop.Admin;
 
 namespace WebAppShop.Admin.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
         private readonly ILogger<HomeController> _logger;
 
@@ -19,7 +21,7 @@ namespace WebAppShop.Admin.Controllers
         }
 
         public IActionResult Index()
-        {
+        {           
             return View();
         }
 

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace eShopSolution.Models.Common
 {
-    public class PagedResultBase : PagingRequestBase
+    public class PageResultBase : PagingRequestBase
     {
         public int TotalRecords { get; set; }
 

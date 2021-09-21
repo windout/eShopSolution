@@ -11,10 +11,10 @@ namespace WebAppShop.Admin.Services
     {
         Task<ApiResult<string>> Authenticate(LoginRequest request);
         Task<ApiResult<bool>> RegisterUser(RegisterRequest request);
-        /*Task<ApiResult<PagedResult<UserVm>>> GetUsersPagings(GetUserPagingRequest request);
+        Task<ApiResult<PageResult<UserViewModel>>> GetUsersPagings(GetUserPagingRequest request);
         Task<ApiResult<bool>> UpdateUser(Guid id, UserUpdateRequest request);
-        Task<ApiResult<UserVm>> GetById(Guid id);
+        Task<ApiResult<UserViewModel>> GetById(Guid id);
         Task<ApiResult<bool>> Delete(Guid id);
-        Task<ApiResult<bool>> RoleAssign(Guid id, RoleAssignRequest request);*/
+        Task<ApiResult<bool>> RoleAssign(Guid id, RoleAssignRequest request);
     }
 }

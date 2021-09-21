@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace eShopSolution.Models.Common
 {
-    public class PageResult<T> : PagedResultBase
+    public class PageResult<T> : PageResultBase
     {
-        public List<T> item { get; set; }
+        public List<T> Items { get; set; }
     }
 }
