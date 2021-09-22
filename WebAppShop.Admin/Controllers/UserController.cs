@@ -28,7 +28,7 @@ namespace WebAppShop.Admin.Controllers
             _roleApiClient = roleApiClient;
         }
      
-        public async Task<IActionResult> Index(string keyword, int pageIndex = 1, int pageSize = 10)
+        public async Task<IActionResult> Index(string keyword, int pageIndex = 1, int pageSize = 1)
         {
             var request = new GetUserPagingRequest()
             {
@@ -119,7 +119,7 @@ namespace WebAppShop.Admin.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Delete([FromQuery]Guid id)
+        public async Task<IActionResult> Delete(Guid id)
         {
             var result = await _userApiClient.Delete(id);
             if (result.IsSuccessed)

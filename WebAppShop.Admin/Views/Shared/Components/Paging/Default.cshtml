@@ -7,14 +7,7 @@
         if (key == "pageIndex")
         {
             continue;
-        }
-        if (request.Query[key].Count > 1)
-        {
-            foreach (var item in (string[])request.Query[key])
-            {
-                urlTemplate += "&" + key + "=" + item;
-            }
-        }
+        }       
         else
         {
             urlTemplate += "&" + key + "=" + request.Query[key];

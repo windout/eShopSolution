@@ -33,7 +33,7 @@ namespace WebAppShop.Admin
                     .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<LoginRequestValidator>());
 
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-                    .AddCookie(option=> {                        
+                    .AddCookie(option=> {
                         option.LoginPath = "/Login";
                         option.AccessDeniedPath = "/Login/Forbidden";
                     });
@@ -41,9 +41,9 @@ namespace WebAppShop.Admin
             services.AddSession(configure =>
             {
                 configure.Cookie.Name = "Token";
-                configure.Cookie.MaxAge = TimeSpan.FromMinutes(10);
+                configure.Cookie.MaxAge = TimeSpan.FromHours(1);
                 configure.Cookie.HttpOnly = true;
-                configure.IdleTimeout = TimeSpan.FromMinutes(5);
+                configure.IdleTimeout = TimeSpan.FromMinutes(30);
             });
 
             services.AddAuthorization();
