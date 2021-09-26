@@ -82,9 +82,12 @@ namespace eShopSolution.Business.Catalog.Products
                 {
                     translations.Add(new ProductTranslation()
                     {
-                        Name = SystemConstants.ProductConstants.NA,
+                        Name = $"Origin({request.Name}) {SystemConstants.ProductConstants.NA}",
                         Description = SystemConstants.ProductConstants.NA,
+                        Details = SystemConstants.ProductConstants.NA,
+                        SeoDescription = SystemConstants.ProductConstants.NA,
                         SeoAlias = SystemConstants.ProductConstants.NA,
+                        SeoTitle = SystemConstants.ProductConstants.NA,
                         LanguageId = language.Id
                     });
                 }
@@ -142,11 +145,14 @@ namespace eShopSolution.Business.Catalog.Products
                         join pt in _context.ProductTranslations on p.Id equals pt.ProductId
                         join pic in _context.ProductInCategories on p.Id equals pic.ProductId into ppic
                         from pic in ppic.DefaultIfEmpty()
+
                         join c in _context.Categories on pic.CategoryId equals c.Id into picc
                         from c in picc.DefaultIfEmpty()
+
                         join pi in _context.ProductImages on p.Id equals pi.ProductId into ppi
                         from pi in ppi.DefaultIfEmpty()
-                        where pt.LanguageId == request.LanguageId && pi.IsDefault == true
+
+                        where pt.LanguageId == request.LanguageId
                         select new { p, pt, pic, pi };
             //2. filter
             if (!string.IsNullOrEmpty(request.Keyword))
@@ -271,7 +277,7 @@ namespace eShopSolution.Business.Catalog.Products
             return await _context.SaveChangesAsync();
         }
 
-        public async Task<int> Update(ProductUpdateRequest request)
+        public async Task<ApiResult<int>> Update(ProductUpdateRequest request)
         {
             var product = await _context.Products.FindAsync(request.Id);
             var productTranslations = await _context.ProductTranslations.FirstOrDefaultAsync(x => x.ProductId == request.Id
@@ -296,9 +302,26 @@ namespace eShopSolution.Business.Catalog.Products
                     thumbnailImage.ImagePath = await this.SaveFile(request.ThumbnailImage);
                     _context.ProductImages.Update(thumbnailImage);
                 }
+                else
+                {
+                    var productImages = new List<ProductImage>()
+                    {
+                        new ProductImage()
+                        {                            
+                            ProductId = request.Id,
+                            Caption = "Thumbnail image",
+                            DateCreated = DateTime.Now,
+                            FileSize = request.ThumbnailImage.Length,
+                            ImagePath = await this.SaveFile(request.ThumbnailImage),
+                            IsDefault = true,
+                            SortOrder = 1
+                        }
+                    };
+                    _context.ProductImages.AddRange(productImages);
+                }
             }
-
-            return await _context.SaveChangesAsync();
+            var count = await _context.SaveChangesAsync();
+            return new ApiSuccessResult<int>(count);
         }
 
         public async Task<int> UpdateImage(int imageId, ProductImageUpdateRequest request)

@@ -10,7 +10,7 @@ namespace eShopSolution.Business.Catalog.Products
     {
         Task<int> Create(ProductCreateRequest request);
 
-        Task<int> Update(ProductUpdateRequest request);
+        Task<ApiResult<int>> Update(ProductUpdateRequest request);
 
         Task<int> Delete(int productId);
 

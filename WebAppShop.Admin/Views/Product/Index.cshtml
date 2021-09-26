@@ -1,34 +1,39 @@
-﻿@model PageResult<UserViewModel>
+﻿@model PageResult<ProductViewModel>
 
 @{
-    ViewData["Title"] = "Danh sách người dùng";
+    ViewData["Title"] = "Danh sách sản phẩm";
 }
 @section Scripts{
     <script src="https://code.jquery.com/jquery-latest.js"></script>
     <script>setTimeout(function () { $('#msgAlert').fadeOut("slow"); }, 2000);</script>
-    <script>$('#exampleModal').modal('show')</script>    
+    <script>$('#exampleModal').modal('show')</script>
 }
 <div class="container-fluid">
-    <h1 class="mt-4">Danh sách người dùng</h1>
+    <h1 class="mt-4">Danh sách sản phẩm</h1>
     <ol class="breadcrumb mb-4">
         <li class="breadcrumb-item"><a href="/">Trang chủ</a></li>
-        <li class="breadcrumb-item active">Danh sách người dùng</li>
+        <li class="breadcrumb-item active">Danh sách sản phẩm</li>
     </ol>
     <div class="card mb-12">
         <div class="card-header">
             <div class="row">
                 <div class="col-md-6 col-xs-12">
-                    <a class="btn btn-success" asp-action="Register" asp-controller="User">Tạo mới</a>
+                    <a class="btn btn-success" asp-action="Create" asp-controller="Product">Tạo mới</a>
                 </div>
                 <div class="col-md-6 col-xs-12">
                     <form asp-action="Index" method="get">
                         <div class="row">
-                            <div class="col-md-9">
+                            <div class="col-md-4">
                                 <input type="text" value="@ViewBag.Keyword" name="keyword" class="form-control" />
                             </div>
-                            <div class="col-md-5">
-                                <button type="submit" class="btn btn-outline-primary">Tìm</button>
-                                <a href="/User/Index" class="btn btn-outline-danger">Reset</a>
+                            <div class="col-md-4">
+                                <select name="categoryId" onchange="this.form.submit()" asp-items="@ViewBag.Categories" class="form-control">
+                                    <option>--Chọn danh mục--</option>
+                                </select>
+                            </div>
+                            <div class="cold-md-3">
+                                <button type="submit" class="btn btn-primary">Tìm</button>
+                                <button type="button" onclick="window.location.href='/Product/Index'" class="btn btn-dark">Reset</button>
                             </div>
                         </div>
                     </form>
@@ -50,20 +55,21 @@
                     <thead>
                         <tr>
                             <th>
+                                Mã SP
+                            </th>
+                            <th>
                                 Tên
                             </th>
                             <th>
-                                Họ
+                                Giá nhập
                             </th>
                             <th>
-                                Số điện thoại
+                                Giá bán
                             </th>
                             <th>
-                                Tài khoản
+                                Số lượng tồn
                             </th>
-                            <th>
-                                Email
-                            </th>
+
                             <th></th>
                         </tr>
                     </thead>
@@ -72,25 +78,25 @@
                         {
                             <tr>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.FirstName)
+                                    @Html.DisplayFor(modelItem => item.Id)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.LastName)
+                                    @Html.DisplayFor(modelItem => item.Name)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.PhoneNumber)
+                                    @Html.DisplayFor(modelItem => item.OriginalPrice)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.UserName)
+                                    @Html.DisplayFor(modelItem => item.Price)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.Email)
+                                    @Html.DisplayFor(modelItem => item.Stock)
                                 </td>
                                 <td>
                                     @Html.ActionLink("Sửa", "Edit", new { id = item.Id }, new { @class = "btn btn-success" })
                                     @Html.ActionLink("Xem", "Details", new { id = item.Id }, new { @class = "btn btn-info" })
                                     <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal">Xóa</button>
-                                    @Html.ActionLink("Gán quyền", "RoleAssign", new { id = item.Id }, new { @class = "btn btn-dark" })
+                                    @Html.ActionLink("Gán danh mục", "CategoryAssign", new { id = item.Id }, new { @class = "btn btn-dark" })
 
                                     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                                         <div class="modal-dialog modal-dialog-centered" role="document">
@@ -122,5 +128,5 @@
             </div>
             @await Component.InvokeAsync("Paging", Model)
         </div>
-    </div>    
+    </div>
 </div>

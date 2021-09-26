@@ -14,7 +14,6 @@ using WebAppShop.Admin.Services;
 
 namespace WebAppShop.Admin.Controllers
 {
-    //[Authorize]
     public class UserController : BaseController
     {
         private readonly IUserApiClient _userApiClient;
@@ -123,12 +122,10 @@ namespace WebAppShop.Admin.Controllers
         {
             var result = await _userApiClient.Delete(id);
             if (result.IsSuccessed)
-            {
                 TempData["result"] = "Xóa người dùng thành công";
-                return RedirectToAction("Index");
-            }
-            ModelState.AddModelError("", result.Message);
-            return View();
+            else
+                TempData["result"]=result.Message;
+            return RedirectToAction("Index");
         }
 
         [HttpGet]

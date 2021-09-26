@@ -22,22 +22,7 @@
         <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
             <div class="input-group"></div>
         </form>
-        <!-- Navbar-->
-        <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
-                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                    <li><label class="dropdown-item">Name</label></li>
-                    <li><a class="dropdown-item" href="/User/Profile">My Profile</a></li>
-                    <li><hr class="dropdown-divider" /></li>
-                    <li>
-                        <form method="get" asp-controller="User" asp-action="Logout">
-                            <button type="submit" class="dropdown-item">Logout</button>
-                        </form>
-                    </li>
-                </ul>
-            </li>
-        </ul>
+        @await Component.InvokeAsync("Navigation") 
     </nav>
     <div id="layoutSidenav">
         <div id="layoutSidenav_nav">
@@ -58,6 +43,7 @@
                         <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav">
                                 <a class="nav-link" href="/Product">Products Management</a>
+                                <a class="nav-link" href="/Category">Categories Management</a>
                             </nav>
                         </div>
                         <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">

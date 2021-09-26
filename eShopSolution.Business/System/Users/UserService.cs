@@ -140,8 +140,6 @@ namespace eShopSolution.Business.System.Users
                     await _userManager.RemoveFromRoleAsync(user, roleName);
                 }
             }
-            await _userManager.RemoveFromRolesAsync(user, removedRoles);
-
             var addedRoles = request.Roles.Where(x => x.Selected).Select(x => x.Name).ToList();
             foreach (var roleName in addedRoles)
             {

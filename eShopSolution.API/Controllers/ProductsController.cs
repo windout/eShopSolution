@@ -69,8 +69,9 @@ namespace eShopSolution.API.Controllers
                 return BadRequest();
 
             var product = await _productService.GetById(productId, request.LanguageId);
-
-            return CreatedAtAction(nameof(GetById), new { id = productId }, product);
+            if (product == null)
+                return BadRequest("product have been created cannot be found");
+            return Ok(product);
         }
 
         [HttpPut("{productId}")]
@@ -84,9 +85,9 @@ namespace eShopSolution.API.Controllers
             }
             request.Id = productId;
             var affectedResult = await _productService.Update(request);
-            if (affectedResult == 0)
-                return BadRequest();
-            return Ok();
+            if (affectedResult.ResultObj == 0)
+                affectedResult.Message = "notthing change";
+            return Ok(affectedResult);
         }
 
         [HttpDelete("{productId}")]
